@@ -3,7 +3,7 @@ NVCC = nvcc
 GCC_OPTIONS = -std=c++17 -Wall --pedantic-error
 
 PROGRAM = recursive_fibonacci to_check_limit_of_int usage_of_pointer\
-	  pointer_of_pointer
+	  pointer_of_pointer enum_with_scope
 
 all : $(PROGRAM)
 
@@ -24,4 +24,7 @@ usage_of_pointer : usage_of_pointer.cpp all.h
 	$(CC) $(GCC_OPTIONS) $< -o $@
 
 pointer_of_pointer : pointer_of_pointer.cpp all.h
+	$(CC) $(GCC_OPTIONS) $< -o $@
+
+enum_with_scope : enum_with_scope.cpp all.h
 	$(CC) $(GCC_OPTIONS) $< -o $@
