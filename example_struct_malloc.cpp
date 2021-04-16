@@ -26,6 +26,7 @@ PERSON	*set_person() {
 		free(tmp_person);
 		return(NULL);
 	}
+	memset(tmp_person->hobby, 0x00, sizeof(HOBBY));
 
 	return(tmp_person);
 }
