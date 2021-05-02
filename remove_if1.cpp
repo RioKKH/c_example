@@ -13,5 +13,5 @@ int main()
     auto last = std::remove_if(std::begin(v), std::end(v), is_even);
 
     std::for_each(std::begin(v), last, [](auto x){ std::cout << x; });
-    // [std:;begin(v), last)は{1, 3, 5, 7, 9}
+    // [std::begin(v), last)は{1, 3, 5, 7, 9}
 }
