@@ -78,6 +78,11 @@ void test4()
 
 
     {
+        using const_T_1 = const T;
+        using const_T_2 = T const;
+        using const_T_pointer_1 = const T *;
+        using const_T_pointer_2 = T const *;
+
         const int x {};
         const int *ptr = &x;
         // これは(const int) *ptrの意味。つまりconstなのは
@@ -111,6 +116,46 @@ void test4()
         // 変更出来る
         data = 0;
     }
+
+    {
+        // Tへのconstなポインター
+        using T_const_pointer = T * const;
+        /**
+         * これはポインターがconstなのであって、Tはconstではない
+         * 従って、ポインターを経由して参照先を変更することは出来るが
+         * ポインターの値自体は変更出来ない型となる
+         * T * const == T (* const)ということかな
+         */
+        int data {};
+
+        // constなポインター
+        int * const ptr = &data;
+        // OK、参照先は変更出来る
+        *ptr = 1;
+        //error、値は変更出来ない
+        // ptr = nullptr;
+    }
+
+    {
+        // どちらもconstなTへのconstなポインター
+        using const_T_const_pointer_1 = const T * const;
+        using const_T_const_pointer_2 = T const * const;
+        /**
+         * constなTなので、ポインターを経由して参照先を
+         * 変更することは出来ないし、constなポインターなので、
+         * ポインターの値を変更することも出来ない。
+         */
+
+        int data = 123;
+        int const * const ptr = &data;
+
+        // OK、参照先は読める
+        int read = *ptr;
+        // error、参照先は変更出来ない
+        // *ptr = 0;
+        // error、ポインターは変更出来ない
+        // ptr = nullptr;
+    }
 }
 
 
@@ -121,5 +166,6 @@ int main()
     test1();
     test2();
     test3();
+    test4();
 }
 
