@@ -1,6 +1,6 @@
 CC = gcc
 # コンパイルオプションとして、GTK3のヘッダーファイルの場所を指定します
-CFLAGS = `pkg-config --cflags gtk+-3.0`
+CFLAGS = `pkg-config --cflags gtk+-3.0` -g
 # リンクオプションとして、GTK3のライブラリの場所を指定します
 LDFLAGS = `pkg-config --libs gtk+-3.0`
 # 現在のディレクトリにある全ての.cファイルをソースファイルとします。
@@ -23,7 +23,7 @@ all: $(TARGETS)
 # このパターンルールは、.cファイルから実行可能ファイルをビルドします。
 # $@はターゲット名(.cを除いたファイル名), $<は依存ファイル名(.cファイル名)を表します。
 %: %.c
-	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
+	$(CC) $(CFLAGS) -fsanitize=undefined -o $@ $< $(LDFLAGS)
 
 # cleanターゲットは、全ての実行可能ファイルを削除します
 clean:
