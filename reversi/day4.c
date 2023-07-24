@@ -61,6 +61,14 @@ static void activate(GtkApplication* app, gpointer user_data)
             position[0] = i; // 行を表す
             position[1] = j; // 列を表す
             g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), position);
+            // g_signal_connect_swapped()関数を利用して、ボタンのdestroyシグナルをg_free()
+            // 関数に接続する。destroyシグナルはウィジェットが破棄されるときに発生する。
+            // g_signal_connect_swapped()関数は、シグナルが発生したときに呼び出される
+            // コールバック関数の引数を入れ替えることが出来る。ここでは、g_free()関数の
+            // 引数としてposition配列へのポインタをw田あたしている。従って、このコードを
+            // 利用すると、各ボタンがはきされるとき、例えばウィンドウが閉じられるときに、
+            // そのボタンのposition配列のメモリが解放される
+            g_signal_connect_swapped(button, "destroy", G_CALLBACK(g_free), position);
             gtk_grid_attach(GTK_GRID(grid), button, j, i, 1, 1);
         }
     }
