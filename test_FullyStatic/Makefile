@@ -20,6 +20,9 @@ $(DYNAMIC_TARGET): $(OBJ) $(SHAREDLIB)
 
 # 静的ライブラリを作る
 libfoo.a: foo.o
+	# c - create: ライブラリを作成する
+	# r - replace: 既存のファイルが存在すれば置き換える
+	# s - index: インデックスを作成する
 	ar rcs $@ $^
 
 # 動的ライブラリを作る
